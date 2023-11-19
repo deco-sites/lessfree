@@ -1,6 +1,6 @@
 {
   "imports": {
-    "deco-sites/lessfree/": "./",
+    "serve": "https://deno.land/std@0.170.0/http/server.ts",
 
     "deco-sites/lessfree/": "./",
     "$store/": "./",
@@ -17,7 +17,7 @@
     "daisyui": "npm:daisyui@3.9.2"
   },
   "tasks": {
-    "start": "deno task bundle && deno run -A --unstable --watch=tailwind.css,sections/,functions/,loaders/,actions/,workflows/,accounts/,.env dev.ts",
+    "start": "deno run -A --unstable main.ts",
     "gen": "deno run -A dev.ts --gen-only",
     "play": "USE_LOCAL_STORAGE_ONLY=true deno task start",
     "component": "deno eval 'import \"deco/scripts/component.ts\"'",
