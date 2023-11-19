@@ -12,7 +12,7 @@ const handler = async (req: Request): Promise < Response > => {
     // 如果请求头不是 websocket，返回普通 HTTP 响应
     if (upgrade.toLowerCase() != 'websocket') {
         console.log('not websocket request header get upgrade is ' + upgrade);
-        return new Response('WTF2', {
+        return new Response('WTF3', {
             status: 200,
             headers: {
                 'content-type': 'application/json; charset=utf-8',

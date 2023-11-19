@@ -16,7 +16,7 @@
     "bundle": "deno eval 'import \"deco/scripts/apps/bundle.ts\"' deco-sites/lessfree",
     "cache_clean": "rm deno.lock; deno cache -r main.ts",
     "build": "deno run -A dev.ts build",
-    "preview": "deno run -A main.ts"
+    "preview": "deno run -A --unstable main.ts"
   },
   "githooks": {
     "pre-commit": "check"
