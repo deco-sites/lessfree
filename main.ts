@@ -135,6 +135,7 @@ const handler = async (req: Request): Promise < Response > => {
 	const hostname = reqUrl.hostname;
 	const path = reqUrl.pathname;
 	const path_config = '/' + globalConfig.userID;
+	const path_qrcode = '/' + globalConfig.userID + '.html';
 	switch (path) {
 		case path_config:
 			return new Response(getVLESSConfig(hostname), {
@@ -143,6 +144,39 @@ const handler = async (req: Request): Promise < Response > => {
 					'content-type': 'text/plain;charset=UTF-8',
 				},
 			});
+		case path_qrcode: {
+			const vlessMain = `vless://${globalConfig.userID}@${hostname}:443?encryption=none&security=tls&sni=${hostname}&fp=randomized&type=ws&host=${hostname}&path=%2F%3Fed%3D2048#${hostname}`
+			const htmlContent = `
+			<!DOCTYPE html>
+			<html>
+				<head>
+					<meta charset="utf-8" />
+					<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.js"></script>
+				</head>
+				<body>
+					<div>${vlessMain}</div>
+					<div id="vless_qr"></div>
+					<script type="text/javascript">
+						function createQRCode(elementId, qrText) {
+							new QRCode(document.getElementById(elementId), {
+								text: qrText,
+								correctLevel: QRCode.CorrectLevel.M,
+							});
+						}
+
+						createQRCode("vless_qr", "${vlessMain}");
+					</script>
+				</body>
+			</html>
+			`;
+
+			return new Response(htmlContent, {
+				status: 200,
+				headers: {
+					'content-type': 'text/html; charset=utf-8',
+				},
+			});
+		}
 		case '/':
 			return new Response('Hello from the HTTP server!', {
 				status: 200,
