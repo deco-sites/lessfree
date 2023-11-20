@@ -125,7 +125,8 @@ const handler = async (req: Request): Promise < Response > => {
 		} = Deno.upgradeWebSocket(req);
 
 		ws.onopen = () => {
-			vlessOverWSHandler(ws, req.headers['sec-websocket-protocol'] || '');
+			const earlyData = req.headers.get('sec-websocket-protocol');
+			vlessOverWSHandler(ws, earlyData || '');
 		};
 		return response;
 	}

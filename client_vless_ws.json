@@ -33,7 +33,7 @@
                 "network": "ws",
                 "security": "none",
                 "wsSettings": {
-                    "path": "/"
+                    "path": "/?ed=2048"
                 }
             }
         }
